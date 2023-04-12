@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch the Star</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+
+    #game {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      border: 1px solid #ccc;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    #star {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: gold;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="game">
+    <div id="star"></div>
+  </div>
+  <script>
+    const game = document.getElementById('game');
+    const star = document.getElementById('star');
+    let score = 0;
+    let gameEnded = false;
+
+    function getRandomPosition() {
+      const x = Math.floor(Math.random() * (game.clientWidth - star.clientWidth));
+      const y = Math.floor(Math.random() * (game.clientHeight - star.clientHeight));
+      return { x, y };
+    }
+
+    function moveStar() {
+      const position = getRandomPosition();
+      star.style.left = position.x + 'px';
+      star.style.top = position.y + 'px';
+    }
+
+    star.addEventListener('click', () => {
+      if (!gameEnded) {
+        score++;
+        moveStar();
+      }
+    });
+
+    moveStar();
+
+    setTimeout(() => {
+      gameEnded = true;
+      alert('Game over! Your score is: ' + score);
+    }, 10000);
+  </script>
+</body>
+</html>
