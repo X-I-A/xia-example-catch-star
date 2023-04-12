@@ -32,15 +32,38 @@
       border-radius: 50%;
       cursor: pointer;
     }
+
+    #score {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 16px;
+    }
+
+    #restart-button {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      font-size: 14px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
   <div id="game">
     <div id="star"></div>
+    <div id="score">Score: 0</div>
+    <button id="restart-button">Restart</button>
   </div>
   <script>
     const game = document.getElementById('game');
     const star = document.getElementById('star');
+    const scoreDisplay = document.getElementById('score');
+    const restartButton = document.getElementById('restart-button');
     let score = 0;
     let gameEnded = false;
 
@@ -56,19 +79,41 @@
       star.style.top = position.y + 'px';
     }
 
+    function updateScore() {
+      scoreDisplay.textContent = 'Score: ' + score;
+    }
+
+    function endGame() {
+      gameEnded = true;
+      alert('Game over! Your score is: ' + score);
+    }
+
+    function startGame() {
+      score = 0;
+      gameEnded = false;
+      updateScore();
+      moveStar();
+      setTimeout(() => {
+        endGame();
+      }, 10000);
+    }
+
     star.addEventListener('click', () => {
       if (!gameEnded) {
         score++;
+        updateScore();
         moveStar();
       }
     });
 
-    moveStar();
+    restartButton.addEventListener('click', () => {
+      if (!gameEnded) {
+        clearTimeout(endGame);
+      }
+      startGame();
+    });
 
-    setTimeout(() => {
-      gameEnded = true;
-      alert('Game over! Your score is: ' + score);
-    }, 10000);
+    startGame();
   </script>
 </body>
 </html>
