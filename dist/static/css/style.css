@@ -19,6 +19,8 @@ body {
 
 #star {
   position: absolute;
+  bottom: 250px;
+  right: 250px;
   font-size: 30px;
   cursor: pointer;
 }

@@ -7,6 +7,7 @@ let gameEnded = false;
 const timeRemainingDisplay = document.getElementById('time-remaining');
 let timeRemaining = 10;
 let timer;
+let gameStarted = false;
 
 function getRandomPosition() {
   const x = Math.floor(Math.random() * (game.clientWidth - star.clientWidth));
@@ -52,6 +53,11 @@ function updateRemainingTime() {
 }
 
 function startGame() {
+  if (!gameStarted) {
+    restartButton.textContent = "Restart";
+    gameStarted = true;
+  }
+
   score = 0;
   gameEnded = false;
   timeRemaining = 10;
@@ -84,10 +90,11 @@ star.addEventListener('click', () => {
 });
 
 restartButton.addEventListener('click', () => {
-  if (!gameEnded) {
-    endGame();
+  if (!gameStarted) {
+    gameStarted = true;
+    restartButton.textContent = 'Restart';
+  } else if (!gameEnded) {
+    clearTimeout(endGame);
   }
   startGame();
 });
-
-startGame();

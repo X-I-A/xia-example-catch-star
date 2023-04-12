@@ -20,6 +20,8 @@ body {
 #star {
   position: absolute;
   font-size: 30px;
+  bottom: 250px;
+  right: 250px;
   cursor: pointer;
 }
 
